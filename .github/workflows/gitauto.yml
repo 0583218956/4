@@ -1,0 +1,96 @@
+name: GitAuto
+
+on:
+  schedule:
+    - cron: "30 */2 * * *"
+  workflow_dispatch:
+    inputs:
+      test:
+        description: "Test latest episode detection now"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+# לא מבטלים ריצה באמצע העלאה - ריצה חדשה מחכה לקודמת
+concurrency:
+  group: gitauto
+  cancel-in-progress: false
+
+env:
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Set release name (Israel time)
+        run: echo "STAMP=$(TZ=Asia/Jerusalem date +%F_%H-%M)" >> "$GITHUB_ENV"
+
+      - name: Install dependencies
+        run: pip install feedparser requests
+
+      - name: Run script
+        env:
+          TEST_SEND: ${{ github.event.inputs.test }}
+        run: |
+          rm -rf podcasts meta out tmp_dl
+          mkdir -p podcasts
+          python gitauto.py
+
+      - name: Check for episodes
+        id: check
+        run: |
+          if [ -n "$(find podcasts -mindepth 1 -type f 2>/dev/null | head -n 1)" ]; then
+            echo "has_new=true" >> "$GITHUB_OUTPUT"
+            echo "Episodes found."
+          else
+            echo "has_new=false" >> "$GITHUB_OUTPUT"
+            echo "No episodes - skipping archive."
+          fi
+
+      - name: Build ZIP files
+        if: steps.check.outputs.has_new == 'true'
+        run: python gitauto.py publish
+
+      - name: Create Release and upload
+        if: steps.check.outputs.has_new == 'true'
+        run: |
+          shopt -s nullglob
+          zips=(out/*.zip)
+          if [ ${#zips[@]} -eq 0 ]; then
+            echo "No ZIPs to upload."
+            exit 1
+          fi
+          gh release create "$STAMP" "${zips[@]}" \
+            --title "$STAMP" \
+            --notes-file out/notes.md
+
+      - name: Delete old releases (keep last 30)
+        if: steps.check.outputs.has_new == 'true'
+        run: |
+          # תגים בפורמט YYYY-MM-DD_HH-MM (וגם הפורמטים הישנים), ממוינים לפי התאריך
+          gh release list --limit 300 --json tagName -q '.[].tagName' | \
+          grep -E '^(podcast-)?[0-9]{4}-[0-9]{2}-[0-9]{2}(_[0-9]{2}-[0-9]{2})?$' | \
+          awk '{ d=$0; sub(/^podcast-/, "", d); print d, $0 }' | \
+          sort | head -n -30 | cut -d' ' -f2 | while read -r tag; do
+            if [ -n "$tag" ]; then
+              echo "Deleting old release: $tag"
+              gh release delete "$tag" --cleanup-tag -y || true
+            fi
+          done
+
+      - name: Save state
+        run: |
+          git config user.name "bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add seen.json
+          git diff --cached --quiet || (git commit -m "Update state" && git push)
