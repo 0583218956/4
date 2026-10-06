@@ -64,7 +64,7 @@ ONLY_NEW = False
 ZIP_LIMIT = 1_999_000_000          # ~1,999MB לקובץ ZIP (מתחת למגבלת 2GiB של GitHub)
 ZIP_ENTRY_OVERHEAD = 1000          # מרווח לכותרות ה-ZIP לכל קובץ
 MAX_SHOW_LEN = 50
-MAX_TITLE_LEN = 120
+MAX_TITLE_LEN = 200
 
 EPISODES = []                      # פרקים שהורדו בריצה הזו
 
