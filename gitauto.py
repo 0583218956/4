@@ -46,6 +46,8 @@ FEEDS = [
     "https://feeds.megaphone.fm/NRD2548999404",
     "https://api.substack.com/feed/podcast/1449053.rss",
     "https://feeds.megaphone.fm/cyberwire-daily-podcast",
+    "https://feeds.acast.com/public/shows/cyber",
+    "https://feeds.soundcloud.com/users/soundcloud:users:261098918/sounds.rss",
     
 ]
 
