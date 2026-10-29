@@ -45,6 +45,8 @@ FEEDS = [
     "https://feeds.transistor.fm/think-fast-talk-smart-communication-techniques",
     "https://feeds.megaphone.fm/NRD2548999404",
     "https://api.substack.com/feed/podcast/1449053.rss",
+    "https://feeds.megaphone.fm/cyberwire-daily-podcast",
+    
 ]
 
 STATE_FILE = "seen.json"           # פיד -> מזהה הפרק האחרון שנשלח
