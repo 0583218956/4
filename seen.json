@@ -9,7 +9,7 @@
   "https://www.omnycontent.com/d/playlist/397b9456-4f75-4509-acff-ac0600b4a6a4/6b5c19f7-a385-49c0-bb95-ad4a0071daea/08535d76-8bf4-4bf2-af8d-ad4a007205a3/podcast.rss": "39226d23-fece-4bd1-bb35-b4f200e5fbcc",
   "https://feeds.megaphone.fm/GLT1412515089": "0dc6237e-d512-11f1-816e-5f927e9904ef",
   "https://omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/A91018A4-EA4F-4130-BF55-AE270180C327/44710ECC-10BB-48D1-93C7-AE270180C33E/podcast.rss": "59a147ba-9575-41de-a57f-b4f001119cc1",
-  "https://www.omnycontent.com/d/playlist/2ee97a4e-8795-4260-9648-accf00a38c6a/ac2da21e-2193-4683-bcb5-accf011076ad/409bad89-c4c2-46cb-b69b-accf01152781/podcast.rss": "4e382ed2-fe60-4a05-a6c4-b4f5015050e4",
+  "https://www.omnycontent.com/d/playlist/2ee97a4e-8795-4260-9648-accf00a38c6a/ac2da21e-2193-4683-bcb5-accf011076ad/409bad89-c4c2-46cb-b69b-accf01152781/podcast.rss": "f5309d94-d800-47ac-b497-b4f700018e68",
   "https://www.spreaker.com/show/6951904/episodes/feed": "46252 at https://www.thisamericanlife.org",
   "https://feeds.simplecast.com/qm_9xx0g": "cf65a09e-f94e-41c6-861b-9176b4cbba8a",
   "https://feeds.simplecast.com/JZSQrle9": "2fbc7fef-2c03-4578-85b3-4fa1fd54a98d",
@@ -31,5 +31,6 @@
   "https://feeds.transistor.fm/think-fast-talk-smart-communication-techniques": "da77f5db-efcd-4084-9ee5-9f92f69d082c",
   "https://feeds.megaphone.fm/NRD2548999404": "915f3148-d67b-11f1-9736-c3f2345434f0",
   "https://feeds.megaphone.fm/cyberwire-daily-podcast": "d664b828-1671-11f1-ad8a-875bf98de76b",
-  "https://feeds.acast.com/public/shows/cyber": "69fb6273921510d4c18b60e9"
+  "https://feeds.acast.com/public/shows/cyber": "69fb6273921510d4c18b60e9",
+  "https://api.substack.com/feed/podcast/1449053.rss": "substack:post:221908562"
 }
